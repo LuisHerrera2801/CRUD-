@@ -46,15 +46,24 @@ export default function Home() {
       <td>{service.description}</td>
       <td>{service.location}</td>
       <td>
-        <button className='btn btn-primary mx-2'>Ver</button>
+        
         <Link className='btn btn-outline-primary mx-2'
         to={`/editservice/${service.id}`}>
-          Editar
+        Editar
+
+
         </Link>
         <button className='btn btn-danger mx-2'
           onClick={()=>deleteServices(service.id)}
-          
           >Eliminar</button>
+
+            <Link
+              className="btn btn-primary mx-2"
+              to={`/viewservice/${service.id}`}
+                >Ver
+                </Link>
+
+
       </td>
     </tr>
       ))
