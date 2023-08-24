@@ -30,4 +30,27 @@ public class ServicesController {
                 .orElseThrow(() -> new ServicesNotFountException(id));
 
     }
+    @PutMapping("/service/{id}")
+    Services updateService(@RequestBody Services newService,@PathVariable Long id){
+        return servicesRepository.findById(id)
+                .map(service -> {
+                    service.setName(newService.getName());
+                    service.setCategory(newService.getCategory());
+                    service.setDescription(newService.getDescription());
+                    service.setLocation(newService.getLocation());
+
+                    return servicesRepository.save(service);
+
+                }).orElseThrow(()->new ServicesNotFountException(id));
+    }
+    @DeleteMapping("/service/{id}")
+    String deleteService(@PathVariable Long id){
+        if(!servicesRepository.existsById(id)){
+            throw new ServicesNotFountException(id);
+        }
+        servicesRepository.deleteById(id);
+        return  "User with id "+id+" has been deleted success.";
+    }
+
+
 }
